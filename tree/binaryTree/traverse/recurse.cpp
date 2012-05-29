@@ -77,6 +77,29 @@ void postOrder(intTreeNode* root) {
 	}	
 }
 
+void visitLevelNodes(intTreeNode* root, int level){
+	if(root==NULL||level<0)
+    {
+        return ;
+    }
+    if(level==1)
+    {
+        cout<<root->value<<" ";
+        return ;
+    }
+    visitLevelNodes(root->left,level-1);
+    visitLevelNodes(root->right,level-1);
+}
+
+void widthOrder(intTreeNode* root, int depth) {
+	int i = 1;
+	for (i=1;i<=depth;i++){
+		visitLevelNodes(root,i);		
+		cout<<"\n";
+	}		
+
+}
+
 int main () 
 {
 	intTreeNode *a = new intTreeNode(1);
@@ -96,12 +119,16 @@ int main ()
 	std::cout<< "root:"<< a->value<<"\n";
 	std::cout<< "left:"<< a->left->value<<"\n";
 	std::cout<< "right:"<< a->right->value<<"\n";
+/*
 	preOrder(a);
 	std::cout<< "\n";
 	inOrder(a);
 	std::cout<<"\n";
 	postOrder(a);
 	std::cout<<"\n";
+*/
+
+	widthOrder(a,3);
 //	a = new intTreeNode(NULL,NULL,1);
 //	a->visit ();
 //	intTreeNode b(NULL,NULL,2);

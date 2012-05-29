@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <queue>
 
 using namespace std;
 
@@ -188,6 +189,40 @@ void postOrder_nice(intTreeNode* root) {
 	std::cout<<"Number:"<< c<<"\n";
 }
 
+
+void widthOrder(intTreeNode* root){
+	queue<intTreeNode*> pool ; 
+	queue<int> level;
+	pool.push(root);
+    level.push(1);
+	int currentLevel = 1;
+
+	while (!pool.empty()){
+		intTreeNode* tmp = pool.front();
+		pool.pop();
+		int tmpLevel = level.front();
+		level.pop();
+
+		// a new level coming
+		if (currentLevel < tmpLevel ){
+			cout << endl;
+			currentLevel = tmpLevel;
+		}
+		cout<< tmp->value << " ";
+
+		if ( tmp->left != NULL){
+			pool.push(tmp->left);
+			level.push(currentLevel+1);
+		}
+		
+		if ( tmp->right!= NULL){
+			pool.push(tmp->right);
+			level.push(currentLevel+1);
+		}
+	}	
+	cout << endl;
+}
+
 int main () 
 {
 	intTreeNode *a = new intTreeNode(1);
@@ -220,7 +255,8 @@ int main ()
 //	preOrder_fast(a);
 //	inOrder_nice(a);
 //	inOrder_fast(a);
-	postOrder_nice(a);
+//	postOrder_nice(a);
+	widthOrder(a);
 //	a = new intTreeNode(NULL,NULL,1);
 //	a->visit ();
 //	intTreeNode b(NULL,NULL,2);
